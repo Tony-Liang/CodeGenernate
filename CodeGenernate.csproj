@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LCW.Framework.Common">
+      <HintPath>..\Reference\LCW.Framework.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="DataBasesTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,16 +122,22 @@
     <Content Include="Images\db.View.png" />
     <Content Include="Images\File.ico" />
     <Content Include="Images\Form.ico" />
-    <Content Include="Images\Icons.16x16.PersonalFiles.png" />
+    <Content Include="Images\icon-lg.png" />
+    <Content Include="Images\icon.png" />
+    <Content Include="Images\package.png" />
     <Content Include="Images\Mouse.bmp" />
     <Content Include="Images\msenv22.ico" />
     <Content Include="Images\New.ico" />
     <Content Include="Images\Open.ico" />
     <Content Include="Images\OpenFolder.ICO" />
     <Content Include="Images\OutputWindow.ico" />
+    <Content Include="Images\propertysheets.ico" />
     <Content Include="Images\PropertyWindow.ico" />
+    <Content Include="Images\Provider.ico" />
     <Content Include="Images\Reference.ico" />
     <Content Include="Images\References.ico" />
+    <Content Include="Images\Role.ico" />
+    <Content Include="Images\script.ico" />
     <Content Include="Images\server_icon.gif" />
     <Content Include="Images\SolutionExplorer.ico" />
     <Content Include="Images\TaskListWindow.ico" />

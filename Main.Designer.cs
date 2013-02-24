@@ -399,6 +399,7 @@
             this.Controls.Add(this.toolBar);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.menu_main);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menu_main;
             this.Name = "Main";
@@ -449,4 +450,3 @@
         private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
     }
 }
-

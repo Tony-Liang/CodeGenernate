@@ -59,5 +59,75 @@ namespace CodeGenernate.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap db_Column {
+            get {
+                object obj = ResourceManager.GetObject("db_Column", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_Connection {
+            get {
+                object obj = ResourceManager.GetObject("db_Connection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_execute {
+            get {
+                object obj = ResourceManager.GetObject("db_execute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_Schema {
+            get {
+                object obj = ResourceManager.GetObject("db_Schema", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_Stop {
+            get {
+                object obj = ResourceManager.GetObject("db_Stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_Table {
+            get {
+                object obj = ResourceManager.GetObject("db_Table", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_Trigger {
+            get {
+                object obj = ResourceManager.GetObject("db_Trigger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap db_View {
+            get {
+                object obj = ResourceManager.GetObject("db_View", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap package {
+            get {
+                object obj = ResourceManager.GetObject("package", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap server_icon {
+            get {
+                object obj = ResourceManager.GetObject("server_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
