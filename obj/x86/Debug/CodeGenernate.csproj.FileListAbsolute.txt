@@ -1,0 +1,13 @@
+F:\WorkPlace\AutoCode\CodeGenernate\bin\Debug\CodeGenernate.exe
+F:\WorkPlace\AutoCode\CodeGenernate\bin\Debug\CodeGenernate.pdb
+F:\WorkPlace\AutoCode\CodeGenernate\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\CodeGenernate.Main.resources
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\CodeGenernate.Properties.Resources.resources
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\GenerateResource.read.1.tlog
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\GenerateResource.write.1.tlog
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\CodeGenernate.exe
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\CodeGenernate.pdb
+F:\WorkPlace\AutoCode\CodeGenernate\bin\Debug\CodeGenernate.exe.config
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\CodeGenernate.DataBasesTree.resources
+F:\WorkPlace\AutoCode\CodeGenernate\obj\x86\Debug\CodeGenernate.ToolWindow.resources
