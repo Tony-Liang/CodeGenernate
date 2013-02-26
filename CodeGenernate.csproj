@@ -38,6 +38,13 @@
     <Reference Include="LCW.Framework.Common">
       <HintPath>..\Reference\LCW.Framework.Common.dll</HintPath>
     </Reference>
+    <Reference Include="mysql.data, Version=6.4.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Reference\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="ScintillaNET">
+      <HintPath>..\Reference\ScintillaNET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeDoc.Designer.cs">
+      <DependentUpon>CodeDoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="DataBasesTree.cs">
       <SubType>Form</SubType>
@@ -74,6 +87,9 @@
     <Compile Include="ToolWindow.Designer.cs">
       <DependentUpon>ToolWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CodeDoc.resx">
+      <DependentUpon>CodeDoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataBasesTree.resx">
       <DependentUpon>DataBasesTree.cs</DependentUpon>
     </EmbeddedResource>
