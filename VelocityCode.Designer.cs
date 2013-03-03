@@ -1,6 +1,6 @@
 ﻿namespace CodeGenernate
 {
-    partial class CodeDoc
+    partial class VelocityCode
     {
         /// <summary>
         /// Required designer variable.
@@ -35,14 +35,10 @@
             // scintilla1
             // 
             this.scintilla1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scintilla1.LineWrapping.VisualFlags = ScintillaNET.LineWrappingVisualFlags.End;
             this.scintilla1.Location = new System.Drawing.Point(0, 0);
-            this.scintilla1.Margins.Margin0.Width = 30;
-            this.scintilla1.Margins.Margin1.AutoToggleMarkerNumber = 0;
-            this.scintilla1.Margins.Margin1.IsClickable = true;
-            this.scintilla1.Margins.Margin2.Width = 16;
+            this.scintilla1.Margins.Margin0.Width = 35;
             this.scintilla1.Name = "scintilla1";
-            this.scintilla1.Size = new System.Drawing.Size(438, 315);
+            this.scintilla1.Size = new System.Drawing.Size(286, 358);
             this.scintilla1.Styles.BraceBad.Size = 9F;
             this.scintilla1.Styles.BraceLight.Size = 9F;
             this.scintilla1.Styles.ControlChar.Size = 9F;
@@ -54,20 +50,19 @@
             this.scintilla1.Styles.Max.Size = 9F;
             this.scintilla1.TabIndex = 0;
             // 
-            // CodeDoc
+            // VelocityCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 315);
+            this.ClientSize = new System.Drawing.Size(286, 358);
             this.Controls.Add(this.scintilla1);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
             | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom) 
             | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Name = "CodeDoc";
+            this.Name = "VelocityCode";
             this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.Document;
-            this.Text = "CodeDoc";
-            this.Load += new System.EventHandler(this.CodeDoc_Load);
+            this.Text = "VelocityCode";
             ((System.ComponentModel.ISupportInitialize)(this.scintilla1)).EndInit();
             this.ResumeLayout(false);
 

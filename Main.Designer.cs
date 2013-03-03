@@ -64,19 +64,20 @@
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.toolBar = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.toolStripButtonConnection = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonOpen = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolBarButtonSolutionExplorer = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonPropertyWindow = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonToolbox = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonOutputWindow = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonTaskList = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolBarButtonLayoutByCode = new System.Windows.Forms.ToolStripButton();
             this.toolBarButtonLayoutByXml = new System.Windows.Forms.ToolStripButton();
-            this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.toolBarButtonStart = new System.Windows.Forms.ToolStripButton();
             this.menu_main.SuspendLayout();
             this.toolBar.SuspendLayout();
             this.SuspendLayout();
@@ -234,105 +235,23 @@
             this.toolBarButtonTaskList,
             this.toolStripSeparator2,
             this.toolBarButtonLayoutByCode,
-            this.toolBarButtonLayoutByXml});
+            this.toolBarButtonLayoutByXml,
+            this.toolBarButtonStart});
             this.toolBar.Location = new System.Drawing.Point(0, 25);
             this.toolBar.Name = "toolBar";
             this.toolBar.Size = new System.Drawing.Size(760, 25);
             this.toolBar.TabIndex = 2;
             this.toolBar.Text = "toolStrip1";
             // 
-            // toolStripButtonConnection
-            // 
-            this.toolStripButtonConnection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonConnection.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonConnection.Image")));
-            this.toolStripButtonConnection.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolStripButtonConnection.Name = "toolStripButtonConnection";
-            this.toolStripButtonConnection.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonConnection.ToolTipText = "Connection";
-            this.toolStripButtonConnection.Click += new System.EventHandler(this.toolStripButtonConnection_Click);
-            // 
-            // toolBarButtonNew
-            // 
-            this.toolBarButtonNew.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonNew.Image")));
-            this.toolBarButtonNew.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonNew.Name = "toolBarButtonNew";
-            this.toolBarButtonNew.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonNew.ToolTipText = "Show Layout From XML";
-            // 
-            // toolBarButtonOpen
-            // 
-            this.toolBarButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonOpen.Image")));
-            this.toolBarButtonOpen.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonOpen.Name = "toolBarButtonOpen";
-            this.toolBarButtonOpen.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonOpen.ToolTipText = "Open";
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolBarButtonSolutionExplorer
-            // 
-            this.toolBarButtonSolutionExplorer.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonSolutionExplorer.Image")));
-            this.toolBarButtonSolutionExplorer.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonSolutionExplorer.Name = "toolBarButtonSolutionExplorer";
-            this.toolBarButtonSolutionExplorer.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonSolutionExplorer.ToolTipText = "Solution Explorer";
-            // 
-            // toolBarButtonPropertyWindow
-            // 
-            this.toolBarButtonPropertyWindow.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonPropertyWindow.Image")));
-            this.toolBarButtonPropertyWindow.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonPropertyWindow.Name = "toolBarButtonPropertyWindow";
-            this.toolBarButtonPropertyWindow.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonPropertyWindow.ToolTipText = "Property Window";
-            // 
-            // toolBarButtonToolbox
-            // 
-            this.toolBarButtonToolbox.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonToolbox.Image")));
-            this.toolBarButtonToolbox.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBarButtonToolbox.Name = "toolBarButtonToolbox";
-            this.toolBarButtonToolbox.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonToolbox.ToolTipText = "Tool Box";
-            // 
-            // toolBarButtonOutputWindow
-            // 
-            this.toolBarButtonOutputWindow.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonOutputWindow.Image")));
-            this.toolBarButtonOutputWindow.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonOutputWindow.Name = "toolBarButtonOutputWindow";
-            this.toolBarButtonOutputWindow.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonOutputWindow.ToolTipText = "Output Window";
-            // 
-            // toolBarButtonTaskList
-            // 
-            this.toolBarButtonTaskList.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonTaskList.Image")));
-            this.toolBarButtonTaskList.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonTaskList.Name = "toolBarButtonTaskList";
-            this.toolBarButtonTaskList.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonTaskList.ToolTipText = "Task List";
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolBarButtonLayoutByCode
-            // 
-            this.toolBarButtonLayoutByCode.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonLayoutByCode.Image")));
-            this.toolBarButtonLayoutByCode.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBarButtonLayoutByCode.Name = "toolBarButtonLayoutByCode";
-            this.toolBarButtonLayoutByCode.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonLayoutByCode.ToolTipText = "Show Layout By Code";
-            // 
-            // toolBarButtonLayoutByXml
-            // 
-            this.toolBarButtonLayoutByXml.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBarButtonLayoutByXml.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonLayoutByXml.Image")));
-            this.toolBarButtonLayoutByXml.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolBarButtonLayoutByXml.Name = "toolBarButtonLayoutByXml";
-            this.toolBarButtonLayoutByXml.Size = new System.Drawing.Size(23, 22);
-            this.toolBarButtonLayoutByXml.ToolTipText = "Show layout by predefined XML file";
             // 
             // dockPanel
             // 
@@ -341,6 +260,7 @@
             this.dockPanel.DockBackColor = System.Drawing.SystemColors.AppWorkspace;
             this.dockPanel.Location = new System.Drawing.Point(0, 50);
             this.dockPanel.Name = "dockPanel";
+            this.dockPanel.RightToLeftLayout = true;
             this.dockPanel.Size = new System.Drawing.Size(760, 269);
             dockPanelGradient1.EndColor = System.Drawing.SystemColors.ControlLight;
             dockPanelGradient1.StartColor = System.Drawing.SystemColors.ControlLight;
@@ -390,6 +310,100 @@
             this.dockPanel.Skin = dockPanelSkin1;
             this.dockPanel.TabIndex = 8;
             // 
+            // toolStripButtonConnection
+            // 
+            this.toolStripButtonConnection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonConnection.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonConnection.Image")));
+            this.toolStripButtonConnection.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolStripButtonConnection.Name = "toolStripButtonConnection";
+            this.toolStripButtonConnection.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonConnection.ToolTipText = "Connection";
+            this.toolStripButtonConnection.Click += new System.EventHandler(this.toolStripButtonConnection_Click);
+            // 
+            // toolBarButtonNew
+            // 
+            this.toolBarButtonNew.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonNew.Image")));
+            this.toolBarButtonNew.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonNew.Name = "toolBarButtonNew";
+            this.toolBarButtonNew.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonNew.ToolTipText = "Show Layout From XML";
+            // 
+            // toolBarButtonOpen
+            // 
+            this.toolBarButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonOpen.Image")));
+            this.toolBarButtonOpen.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonOpen.Name = "toolBarButtonOpen";
+            this.toolBarButtonOpen.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonOpen.ToolTipText = "Open";
+            // 
+            // toolBarButtonSolutionExplorer
+            // 
+            this.toolBarButtonSolutionExplorer.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonSolutionExplorer.Image")));
+            this.toolBarButtonSolutionExplorer.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonSolutionExplorer.Name = "toolBarButtonSolutionExplorer";
+            this.toolBarButtonSolutionExplorer.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonSolutionExplorer.ToolTipText = "Solution Explorer";
+            // 
+            // toolBarButtonPropertyWindow
+            // 
+            this.toolBarButtonPropertyWindow.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonPropertyWindow.Image")));
+            this.toolBarButtonPropertyWindow.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonPropertyWindow.Name = "toolBarButtonPropertyWindow";
+            this.toolBarButtonPropertyWindow.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonPropertyWindow.ToolTipText = "Property Window";
+            // 
+            // toolBarButtonToolbox
+            // 
+            this.toolBarButtonToolbox.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonToolbox.Image")));
+            this.toolBarButtonToolbox.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBarButtonToolbox.Name = "toolBarButtonToolbox";
+            this.toolBarButtonToolbox.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonToolbox.ToolTipText = "Tool Box";
+            // 
+            // toolBarButtonOutputWindow
+            // 
+            this.toolBarButtonOutputWindow.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonOutputWindow.Image")));
+            this.toolBarButtonOutputWindow.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonOutputWindow.Name = "toolBarButtonOutputWindow";
+            this.toolBarButtonOutputWindow.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonOutputWindow.ToolTipText = "Output Window";
+            // 
+            // toolBarButtonTaskList
+            // 
+            this.toolBarButtonTaskList.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonTaskList.Image")));
+            this.toolBarButtonTaskList.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonTaskList.Name = "toolBarButtonTaskList";
+            this.toolBarButtonTaskList.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonTaskList.ToolTipText = "Task List";
+            // 
+            // toolBarButtonLayoutByCode
+            // 
+            this.toolBarButtonLayoutByCode.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonLayoutByCode.Image")));
+            this.toolBarButtonLayoutByCode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBarButtonLayoutByCode.Name = "toolBarButtonLayoutByCode";
+            this.toolBarButtonLayoutByCode.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonLayoutByCode.ToolTipText = "Show Layout By Code";
+            // 
+            // toolBarButtonLayoutByXml
+            // 
+            this.toolBarButtonLayoutByXml.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBarButtonLayoutByXml.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonLayoutByXml.Image")));
+            this.toolBarButtonLayoutByXml.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolBarButtonLayoutByXml.Name = "toolBarButtonLayoutByXml";
+            this.toolBarButtonLayoutByXml.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonLayoutByXml.ToolTipText = "Show layout by predefined XML file";
+            this.toolBarButtonLayoutByXml.Click += new System.EventHandler(this.toolBarButtonLayoutByXml_Click);
+            // 
+            // toolBarButtonStart
+            // 
+            this.toolBarButtonStart.Enabled = false;
+            this.toolBarButtonStart.Image = ((System.Drawing.Image)(resources.GetObject("toolBarButtonStart.Image")));
+            this.toolBarButtonStart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBarButtonStart.Name = "toolBarButtonStart";
+            this.toolBarButtonStart.Size = new System.Drawing.Size(23, 22);
+            this.toolBarButtonStart.ToolTipText = "Start";
+            this.toolBarButtonStart.Click += new System.EventHandler(this.toolBarButtonStart_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -403,6 +417,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menu_main;
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CodeGenernate";
             this.Load += new System.EventHandler(this.Main_Load);
             this.menu_main.ResumeLayout(false);
@@ -448,5 +463,6 @@
         private System.Windows.Forms.ToolStripButton toolBarButtonLayoutByCode;
         private System.Windows.Forms.ToolStripButton toolBarButtonLayoutByXml;
         private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
+        private System.Windows.Forms.ToolStripButton toolBarButtonStart;
     }
 }

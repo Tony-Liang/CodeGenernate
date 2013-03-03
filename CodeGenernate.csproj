@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Reference\mysql.data.dll</HintPath>
     </Reference>
+    <Reference Include="NVelocity">
+      <HintPath>..\Reference\NVelocity.dll</HintPath>
+    </Reference>
     <Reference Include="ScintillaNET">
       <HintPath>..\Reference\ScintillaNET.dll</HintPath>
     </Reference>
@@ -60,13 +63,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeBuilder.Designer.cs">
+      <DependentUpon>CodeBuilder.cs</DependentUpon>
+    </Compile>
     <Compile Include="CodeDoc.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CodeDoc.Designer.cs">
       <DependentUpon>CodeDoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="CodeTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeTemplate.Designer.cs">
+      <DependentUpon>CodeTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ResourcesHelper.cs" />
+    <Compile Include="Common\TemplateManager.cs" />
+    <Compile Include="Common\VelocityWrapper.cs" />
     <Compile Include="DataBasesTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,8 +104,20 @@
     <Compile Include="ToolWindow.Designer.cs">
       <DependentUpon>ToolWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="VelocityCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VelocityCode.Designer.cs">
+      <DependentUpon>VelocityCode.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CodeBuilder.resx">
+      <DependentUpon>CodeBuilder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CodeDoc.resx">
       <DependentUpon>CodeDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate.resx">
+      <DependentUpon>CodeTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataBasesTree.resx">
       <DependentUpon>DataBasesTree.cs</DependentUpon>
@@ -108,6 +137,9 @@
     </Compile>
     <EmbeddedResource Include="ToolWindow.resx">
       <DependentUpon>ToolWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VelocityCode.resx">
+      <DependentUpon>VelocityCode.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

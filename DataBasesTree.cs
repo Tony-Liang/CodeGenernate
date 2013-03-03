@@ -10,6 +10,8 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using LCW.Framework.Common.DataAccess.Schema;
 using CodeGenernate.Common;
+using LCW.Framework.Common.Genernation.DataBases;
+using LCW.Framework.Common.Genernation.DataBases.Entities;
 
 namespace CodeGenernate
 {
@@ -21,7 +23,7 @@ namespace CodeGenernate
             this.treeView1.BeforeExpand += new TreeViewCancelEventHandler(treeView1_BeforeExpand);
         }
 
-        public event EventHandler DocHandler;
+        public event EventHandler<DocumentEventArgs> DocHandler;
 
         void treeView1_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
@@ -61,10 +63,16 @@ namespace CodeGenernate
             //str.UserID = "root";
             //str.Password = "root";
             //DBSchemaProvider.NewInstance("LCW.Framework.Common.DataAccess.Schema.Mysql.MySqlProvider");
-            DBSchemaProvider.GetInstance().ConnectionStringBuilder = str;
-            DbConnectionStringBuilder builder = DBSchemaProvider.GetInstance().ConnectionStringBuilder;
-            BaseNode root = new BaseNode(builder.ServiceName(), builder, DataType.service);
-            root.ImageIndex =root.SelectedImageIndex= 0;
+            //DBSchemaProvider.GetInstance().ConnectionStringBuilder = str;
+            //DbConnectionStringBuilder builder = DBSchemaProvider.GetInstance().ConnectionStringBuilder;
+            //BaseNode root = new BaseNode(builder.ServiceName(), builder, DataType.service);
+            //root.ImageIndex =root.SelectedImageIndex= 0;
+            //root.LoadData += new EventHandler(root_LoadData);
+            //this.treeView1.Nodes.Add(root);
+            ServiceSite service=DataBaseSchemaBuilder.NewInstance(str, "Sql");
+            BaseNode root = new BaseNode(service.Name,service.DbConnectionStringBuilder, DataType.service);
+            root.ImageIndex = root.SelectedImageIndex = 0;
+            root.Tag = service;
             root.LoadData += new EventHandler(root_LoadData);
             this.treeView1.Nodes.Add(root);
         }
@@ -72,20 +80,40 @@ namespace CodeGenernate
         void root_LoadData(object sender, EventArgs e)
         {
             BaseNode obj = (BaseNode)sender;
-            IList<DataBaseSchema> list =DBSchemaProvider.GetInstance().GetDataBases();
-            if (list != null)
+            //IList<DataBaseSchema> list =DBSchemaProvider.GetInstance().GetDataBases();
+            //if (list != null)
+            //{
+            //    foreach (DataBaseSchema schema in list)
+            //    {
+            //        DbConnectionStringBuilder builder = obj.ConnectionStringBuilder.NewInstance(schema.Name);
+            //        BaseNode database = new BaseNode(schema.Name, builder, DataType.database);
+            //        database.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+            //            Refresh()
+            //        });
+            //        database.ImageIndex =database.SelectedImageIndex= 1;
+            //        database.LoadData += new EventHandler(database_LoadData);
+            //        //database.Image = ResourcesHelper.FetchDB_icon(p => p.Schema);
+            //        obj.Nodes.Add(database);
+            //    }
+            //}
+            if (obj.Tag != null)
             {
-                foreach (DataBaseSchema schema in list)
+                ServiceSite service = (ServiceSite)obj.Tag;
+                IList<DataBaseEntity> list = service.DataBases;
+                if (list != null)
                 {
-                    DbConnectionStringBuilder builder = obj.ConnectionStringBuilder.NewInstance(schema.Name);
-                    BaseNode database = new BaseNode(schema.Name, builder, DataType.database);
-                    database.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+                    foreach (DataBaseEntity schema in list)
+                    {
+                        BaseNode database = new BaseNode(schema.Name,schema.DbConnectionStringBuilder, DataType.database);
+                        database.Tag = schema;
+                        database.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
                         Refresh()
                     });
-                    database.ImageIndex =database.SelectedImageIndex= 1;
-                    database.LoadData += new EventHandler(database_LoadData);
-                    //database.Image = ResourcesHelper.FetchDB_icon(p => p.Schema);
-                    obj.Nodes.Add(database);
+                        database.ImageIndex = database.SelectedImageIndex = 1;
+                        database.LoadData += new EventHandler(database_LoadData);
+                        //database.Image = ResourcesHelper.FetchDB_icon(p => p.Schema);
+                        obj.Nodes.Add(database);
+                    }
                 }
             }
         }
@@ -94,6 +122,7 @@ namespace CodeGenernate
         {
             BaseNode database = (BaseNode)sender;
             BaseNode tables = new BaseNode("Tables", database.ConnectionStringBuilder, DataType.package);
+            tables.Tag = database.Tag;
             tables.ImageIndex = tables.SelectedImageIndex = 7;
             tables.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
                         Refresh()
@@ -102,6 +131,7 @@ namespace CodeGenernate
             database.Nodes.Add(tables);
 
             BaseNode views = new BaseNode("Views", database.ConnectionStringBuilder, DataType.package);
+            views.Tag = database.Tag;
             views.ImageIndex = views.SelectedImageIndex = 7;
             views.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
                         Refresh()
@@ -110,6 +140,7 @@ namespace CodeGenernate
             database.Nodes.Add(views);
 
             BaseNode proc = new BaseNode("Proc", database.ConnectionStringBuilder, DataType.package);
+            proc.Tag = database.Tag;
             proc.ImageIndex = proc.SelectedImageIndex = 7;
             proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
                         Refresh()
@@ -118,6 +149,7 @@ namespace CodeGenernate
             database.Nodes.Add(proc);
 
             BaseNode triggers = new BaseNode("Triggers", database.ConnectionStringBuilder, DataType.package);
+            triggers.Tag = database.Tag;
             triggers.ImageIndex = triggers.SelectedImageIndex = 7;
             triggers.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
                         Refresh()
@@ -130,17 +162,35 @@ namespace CodeGenernate
         void triggers_LoadData(object sender, EventArgs e)
         {
             BaseNode obj = (BaseNode)sender;
-            IList<TriggersSchema> list = DBSchemaProvider.GetInstance().GetTriggers(obj.ConnectionStringBuilder);
-            if (list != null)
+            //IList<TriggersSchema> list = DBSchemaProvider.GetInstance().GetTriggers(obj.ConnectionStringBuilder);
+            //if (list != null)
+            //{
+            //    foreach (TriggersSchema schema in list)
+            //    {
+            //        BaseNode proc = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.triggers);
+            //        proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+            //            Refresh(),Open()
+            //        });
+            //        proc.ImageIndex = proc.SelectedImageIndex = 4;
+            //        obj.Nodes.Add(proc);
+            //    }
+            //}
+            if (obj.Tag != null)
             {
-                foreach (TriggersSchema schema in list)
+                DataBaseEntity database = (DataBaseEntity)obj.Tag;
+                IList<TriggersEntity> list=database.Triggers;
+                if (list != null)
                 {
-                    BaseNode proc = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.triggers);
-                    proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
-                        Refresh(),Open()
-                    });
-                    proc.ImageIndex = proc.SelectedImageIndex = 4;
-                    obj.Nodes.Add(proc);
+                    foreach (TriggersEntity schema in list)
+                    {
+                        BaseNode proc = new BaseNode(schema.Name, schema.DbConnectionStringBuilder, DataType.triggers);
+                        proc.Tag=schema;
+                        proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+                            Refresh(),Open()
+                        });
+                        proc.ImageIndex = proc.SelectedImageIndex = 4;
+                        obj.Nodes.Add(proc);
+                    }
                 }
             }
         }
@@ -148,17 +198,35 @@ namespace CodeGenernate
         void proc_LoadData(object sender, EventArgs e)
         {
             BaseNode obj = (BaseNode)sender;
-            IList<ProceduresSchema> list = DBSchemaProvider.GetInstance().GetProcedures(obj.ConnectionStringBuilder);
-            if (list != null)
+            //IList<ProceduresSchema> list = DBSchemaProvider.GetInstance().GetProcedures(obj.ConnectionStringBuilder);
+            //if (list != null)
+            //{
+            //    foreach (ProceduresSchema schema in list)
+            //    {
+            //        BaseNode proc = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.procedure);
+            //        proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+            //            Refresh(),Open()
+            //        });
+            //        proc.ImageIndex =proc.SelectedImageIndex= 5;
+            //        obj.Nodes.Add(proc);
+            //    }
+            //}
+            if (obj.Tag != null)
             {
-                foreach (ProceduresSchema schema in list)
+                DataBaseEntity database = (DataBaseEntity)obj.Tag;
+                IList<ProcedureEntity> list=database.Procedures;
+                if (list != null)
                 {
-                    BaseNode proc = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.procedure);
-                    proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
-                        Refresh(),Open()
-                    });
-                    proc.ImageIndex =proc.SelectedImageIndex= 5;
-                    obj.Nodes.Add(proc);
+                    foreach (ProcedureEntity schema in list)
+                    {
+                        BaseNode proc = new BaseNode(schema.Name, schema.DbConnectionStringBuilder, DataType.procedure);
+                        proc.Tag=schema;
+                        proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+                            Refresh(),Open()
+                        });
+                        proc.ImageIndex = proc.SelectedImageIndex = 5;
+                        obj.Nodes.Add(proc);
+                    }
                 }
             }
         }
@@ -166,17 +234,35 @@ namespace CodeGenernate
         void views_LoadData(object sender, EventArgs e)
         {
             BaseNode obj = (BaseNode)sender;
-            IList<ViewSchema> list = DBSchemaProvider.GetInstance().GetViews(obj.ConnectionStringBuilder);
-            if (list != null)
+            //IList<ViewSchema> list = DBSchemaProvider.GetInstance().GetViews(obj.ConnectionStringBuilder);
+            //if (list != null)
+            //{
+            //    foreach (ViewSchema schema in list)
+            //    {
+            //        BaseNode view = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.view);
+            //        view.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+            //            Refresh(),Open()
+            //        });
+            //        view.ImageIndex =view.SelectedImageIndex= 3;
+            //        obj.Nodes.Add(view);
+            //    }
+            //}
+            if (obj.Tag != null)
             {
-                foreach (ViewSchema schema in list)
+                DataBaseEntity database = (DataBaseEntity)obj.Tag;
+                IList<ViewEntity> list=database.Views;
+                if (list != null)
                 {
-                    BaseNode view = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.view);
-                    view.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
-                        Refresh(),Open()
-                    });
-                    view.ImageIndex =view.SelectedImageIndex= 3;
-                    obj.Nodes.Add(view);
+                    foreach (ViewEntity schema in list)
+                    {
+                        BaseNode proc = new BaseNode(schema.Name, schema.DbConnectionStringBuilder, DataType.view);
+                        proc.Tag=schema;
+                        proc.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+                            Refresh(),Open()
+                        });
+                        proc.ImageIndex = proc.SelectedImageIndex = 3;
+                        obj.Nodes.Add(proc);
+                    }
                 }
             }
         }
@@ -184,19 +270,39 @@ namespace CodeGenernate
         void tables_LoadData(object sender, EventArgs e)
         {
             BaseNode obj = (BaseNode)sender;
-            IList<TableSchema> list = DBSchemaProvider.GetInstance().GetTables(obj.ConnectionStringBuilder);
-            if (list != null)
+            //IList<TableSchema> list = DBSchemaProvider.GetInstance().GetTables(obj.ConnectionStringBuilder);
+            //if (list != null)
+            //{
+            //    foreach (TableSchema schema in list)
+            //    {
+            //        BaseNode node = new BaseNode(schema.Description, obj.ConnectionStringBuilder, DataType.table);
+            //        node.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+            //            Refresh()
+            //        });
+            //        node.Name = schema.Name;
+            //        node.ImageIndex =node.SelectedImageIndex= 2;
+            //        node.LoadData += new EventHandler(node_LoadData);
+            //        obj.Nodes.Add(node);
+            //    }
+            //}
+            if (obj.Tag != null)
             {
-                foreach (TableSchema schema in list)
+                DataBaseEntity database = (DataBaseEntity)obj.Tag;
+                IList<TableEntity> list=database.Tables;
+                if (list != null)
                 {
-                    BaseNode node = new BaseNode(schema.Description, obj.ConnectionStringBuilder, DataType.table);
-                    node.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
-                        Refresh()
-                    });
-                    node.Name = schema.Name;
-                    node.ImageIndex =node.SelectedImageIndex= 2;
-                    node.LoadData += new EventHandler(node_LoadData);
-                    obj.Nodes.Add(node);
+                    foreach (TableEntity schema in list)
+                    {
+                        BaseNode node = new BaseNode(schema.Description, schema.DbConnectionStringBuilder, DataType.table);
+                        node.Tag = schema;
+                        node.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
+                                    Refresh()
+                                });
+                        node.Name = schema.Name;
+                        node.ImageIndex = node.SelectedImageIndex = 2;
+                        node.LoadData += new EventHandler(node_LoadData);
+                        obj.Nodes.Add(node);
+                    }
                 }
             }
         }
@@ -204,15 +310,31 @@ namespace CodeGenernate
         void node_LoadData(object sender, EventArgs e)
         {
             BaseNode obj = (BaseNode)sender;
-            IList<ColumnSchema> list = DBSchemaProvider.GetInstance().GetColumns(obj.ConnectionStringBuilder, obj.Name);
-            if (list != null)
+            //IList<ColumnSchema> list = DBSchemaProvider.GetInstance().GetColumns(obj.ConnectionStringBuilder, obj.Name);
+            //if (list != null)
+            //{
+            //    foreach (ColumnSchema schema in list)
+            //    {
+            //        BaseNode col = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.column);
+            //        col.ImageIndex=col.SelectedImageIndex =6;
+            //        col.Nodes.Clear();
+            //        obj.Nodes.Add(col);
+            //    }
+            //}
+            if (obj.Tag != null)
             {
-                foreach (ColumnSchema schema in list)
+                TableEntity table = (TableEntity)obj.Tag;
+                IList<ColumnEntity> list=table.Columns;
+                if (list != null)
                 {
-                    BaseNode col = new BaseNode(schema.Name, obj.ConnectionStringBuilder, DataType.column);
-                    col.ImageIndex=col.SelectedImageIndex =6;
-                    col.Nodes.Clear();
-                    obj.Nodes.Add(col);
+                    foreach (ColumnEntity schema in list)
+                    {
+                        BaseNode col = new BaseNode(schema.Name, schema.DbConnectionStringBuilder, DataType.column);
+                        col.Tag=schema;
+                        col.ImageIndex=col.SelectedImageIndex =6;
+                        col.Nodes.Clear();
+                        obj.Nodes.Add(col);
+                    }
                 }
             }
         }
@@ -260,24 +382,27 @@ namespace CodeGenernate
                     {
                         if (DocHandler != null)
                         {
-                            message = DBSchemaProvider.GetInstance().OpenProcedure(temp.ConnectionStringBuilder, temp.Text);
-                            DocHandler(message, new EventArgs());
+                            ProcedureEntity p = (ProcedureEntity)node.Tag;
+                            message = p.Content;
+                            DocHandler(p, new DocumentEventArgs(p.Name,message));
                         }
                     }
                     else if (DataType.triggers == temp.NodeType)
                     {
                         if (DocHandler != null)
                         {
-                            message = DBSchemaProvider.GetInstance().OpenTriggers(temp.ConnectionStringBuilder, temp.Text);
-                            DocHandler(message, new EventArgs());
+                            TriggersEntity t = (TriggersEntity)node.Tag;
+                            message = t.Content;
+                            DocHandler(t, new DocumentEventArgs(t.Name,message));
                         }
                     }
                     else if (DataType.view == temp.NodeType)
                     {
                         if (DocHandler != null)
                         {
-                            message = DBSchemaProvider.GetInstance().OpenView(temp.ConnectionStringBuilder,temp.Text);
-                            DocHandler(message, new EventArgs());
+                            ViewEntity v = (ViewEntity)node.Tag;
+                            message = v.Content;
+                            DocHandler(v, new DocumentEventArgs(v.Name,message));
                         }
                     }
                 }

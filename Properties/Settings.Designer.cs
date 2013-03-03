@@ -22,5 +22,41 @@ namespace CodeGenernate.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string outputpath {
+            get {
+                return ((string)(this["outputpath"]));
+            }
+            set {
+                this["outputpath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string assembly {
+            get {
+                return ((string)(this["assembly"]));
+            }
+            set {
+                this["assembly"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string namespaces {
+            get {
+                return ((string)(this["namespaces"]));
+            }
+            set {
+                this["namespaces"] = value;
+            }
+        }
     }
 }

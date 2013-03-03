@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using System.IO;
+using CodeGenernate.Common;
+using NVelocity.App;
+using LCW.Framework.Common.Genernation.DataBases;
 
 namespace CodeGenernate
 {
@@ -17,61 +20,127 @@ namespace CodeGenernate
         {
             InitializeComponent();
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+            template = new CodeTemplate(this);
         }
         private bool m_bSaveLayout = true;
         private DeserializeDockContent m_deserializeDockContent;
         private DataBasesTree databasetree= new DataBasesTree();
+        private CodeTemplate template;
+
         private void Main_Load(object sender, EventArgs e)
         {
-            databasetree.DocHandler += new EventHandler(databasetree_DocHandler);
+            databasetree.DocHandler += new EventHandler<DocumentEventArgs>(databasetree_DocHandler);
+            template.FileHandler += new EventHandler<DocumentEventArgs>(template_FileHandler);
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
-
+            dockPanel.ActiveDocumentChanged += new EventHandler(dockPanel_ActiveDocumentChanged);
+            
             if (File.Exists(configFile))
                 dockPanel.LoadFromXml(configFile, m_deserializeDockContent);
         }
 
-        void databasetree_DocHandler(object sender, EventArgs e)
+        void dockPanel_ActiveDocumentChanged(object sender, EventArgs e)
         {
-            string msg = (string)sender;
-            CodeDoc dummyDoc = new CodeDoc();
-            dummyDoc.SetMessage(msg,LauguaageType.mssql);
-            int count = 1;
-            string text = "Document" + count.ToString();
-            while (FindDocument(text) != null)
+            if (this.dockPanel.ActiveDocument is VelocityCode)
             {
-                count++;
-                text = "Document" + count.ToString();
-            }
-            dummyDoc.Text = text;
-
-            if (dockPanel.DocumentStyle == DocumentStyle.SystemMdi)
-            {
-                dummyDoc.MdiParent = this;
-                dummyDoc.Show();
+                this.toolBarButtonStart.Enabled = true;
             }
             else
-                dummyDoc.Show(dockPanel);
+            {
+                this.toolBarButtonStart.Enabled = false;
+            }
         }
 
-        private IDockContent FindDocument(string text)
+        void template_FileHandler(object sender, DocumentEventArgs e)
+        {
+            CreateDocument(e.Tag, () =>
+            {
+                string msg = (string)e.Sender;
+                CodeDoc dummyDoc = new CodeDoc();
+                dummyDoc.SetMessage(msg, LauguaageType.cs);
+                return dummyDoc;
+            });
+        }
+
+        void databasetree_DocHandler(object sender, DocumentEventArgs e)
+        {
+            CreateDocument(e.Tag, () =>
+            {
+                string msg = (string)e.Sender;
+                CodeDoc dummyDoc = new CodeDoc();
+                dummyDoc.SetMessage(msg, LauguaageType.mssql);
+                return dummyDoc;
+            });
+        }
+
+        public void CreateDocument(string text,Func<DockContent> builder)
+        {
+            DockContent dockform=FindDocument(text);
+            if (dockform == null)
+            {
+                if (builder != null)
+                    dockform = builder();
+            }
+            if (dockform != null)
+            {
+                dockform.Text = text;
+                dockform.BringToFront();
+                if (dockPanel.DocumentStyle == DocumentStyle.SystemMdi)
+                {
+                    dockform.MdiParent = this;
+                    dockform.Show();
+                }
+                else
+                    dockform.Show(dockPanel);
+            }
+        }
+
+        public DockContent FindDocument(string text)
         {
             if (dockPanel.DocumentStyle == DocumentStyle.SystemMdi)
             {
                 foreach (Form form in MdiChildren)
+                {
                     if (form.Text == text)
-                        return form as IDockContent;
+                    {
+                        return form as DockContent;
+                    }
+                }
 
                 return null;
             }
             else
             {
-                foreach (IDockContent content in dockPanel.Documents)
+                foreach (DockContent content in dockPanel.Documents)
+                {
                     if (content.DockHandler.TabText == text)
+                    {
                         return content;
+                    }
+                }
 
                 return null;
             }
         }
+
+        //private IDockContent FindDocument(string text)
+        //{
+        //    if (dockPanel.DocumentStyle == DocumentStyle.SystemMdi)
+        //    {
+        //        foreach (Form form in MdiChildren)
+        //            if (form.Text == text)
+        //                return form as IDockContent;
+
+        //        return null;
+        //    }
+        //    else
+        //    {
+        //        foreach (IDockContent content in dockPanel.Documents)
+        //            if (content.DockHandler.TabText == text)
+        //                return content;
+
+        //        return null;
+        //    }
+        //}
 
         private IDockContent GetContentFromPersistString(string persistString)
         {
@@ -85,6 +154,21 @@ namespace CodeGenernate
         private void toolStripButtonConnection_Click(object sender, EventArgs e)
         {
             databasetree.Show(dockPanel);
+        }
+
+        private void toolBarButtonLayoutByXml_Click(object sender, EventArgs e)
+        {
+            template.Show(dockPanel);
+        }
+
+        private void toolBarButtonStart_Click(object sender, EventArgs e)
+        {
+            if (this.dockPanel.ActiveDocument is VelocityCode)
+            {
+                VelocityCode velocity = (VelocityCode)this.dockPanel.ActiveDocument;
+                CodeBuilder builder = new CodeBuilder(velocity.Template.Path);
+                builder.ShowDialog();
+            }
         }
     }
 }
