@@ -11,6 +11,7 @@ using System.IO;
 using CodeGenernate.Common;
 using NVelocity.App;
 using LCW.Framework.Common.Genernation.DataBases;
+using CodeGenernate.Design;
 
 namespace CodeGenernate
 {
@@ -20,22 +21,50 @@ namespace CodeGenernate
         {
             InitializeComponent();
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
-            template = new CodeTemplate(this);
         }
         private bool m_bSaveLayout = true;
         private DeserializeDockContent m_deserializeDockContent;
-        private DataBasesTree databasetree= new DataBasesTree();
-        private CodeTemplate template;
+        public DataBasesTree databasetree;
+        public Desk desk;
+        public Error error;
+        public Output output;
+        public CodeTemplate template;
+
+        private DocumentManager docmanager;
+        public DockPanel DockPanel
+        {
+            get
+            {
+                return this.dockPanel;
+            }
+        }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            databasetree.DocHandler += new EventHandler<DocumentEventArgs>(databasetree_DocHandler);
-            template.FileHandler += new EventHandler<DocumentEventArgs>(template_FileHandler);
+            docmanager = new DocumentManager(this);            
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
             dockPanel.ActiveDocumentChanged += new EventHandler(dockPanel_ActiveDocumentChanged);
             
             if (File.Exists(configFile))
                 dockPanel.LoadFromXml(configFile, m_deserializeDockContent);
+        }
+
+        public void Dispatcher(DispatcherType type,string str)//分发事件
+        {
+            if (DispatcherType.Error == type)
+            {
+                if (error != null)
+                {
+                    error.SetContent(str);
+                }
+            }
+            else if (DispatcherType.Building == type)
+            {
+                if (output != null)
+                {
+                    output.SetContent(str);
+                }
+            }
         }
 
         void dockPanel_ActiveDocumentChanged(object sender, EventArgs e)
@@ -48,28 +77,6 @@ namespace CodeGenernate
             {
                 this.toolBarButtonStart.Enabled = false;
             }
-        }
-
-        void template_FileHandler(object sender, DocumentEventArgs e)
-        {
-            CreateDocument(e.Tag, () =>
-            {
-                string msg = (string)e.Sender;
-                CodeDoc dummyDoc = new CodeDoc();
-                dummyDoc.SetMessage(msg, LauguaageType.cs);
-                return dummyDoc;
-            });
-        }
-
-        void databasetree_DocHandler(object sender, DocumentEventArgs e)
-        {
-            CreateDocument(e.Tag, () =>
-            {
-                string msg = (string)e.Sender;
-                CodeDoc dummyDoc = new CodeDoc();
-                dummyDoc.SetMessage(msg, LauguaageType.mssql);
-                return dummyDoc;
-            });
         }
 
         public void CreateDocument(string text,Func<DockContent> builder)
@@ -153,11 +160,13 @@ namespace CodeGenernate
 
         private void toolStripButtonConnection_Click(object sender, EventArgs e)
         {
+            docmanager.CreateDatabaseForm();
             databasetree.Show(dockPanel);
         }
 
         private void toolBarButtonLayoutByXml_Click(object sender, EventArgs e)
         {
+            docmanager.CreateTemplateForm();
             template.Show(dockPanel);
         }
 
@@ -166,9 +175,26 @@ namespace CodeGenernate
             if (this.dockPanel.ActiveDocument is VelocityCode)
             {
                 VelocityCode velocity = (VelocityCode)this.dockPanel.ActiveDocument;
-                CodeBuilder builder = new CodeBuilder(velocity.Template.Path);
-                builder.ShowDialog();
+                docmanager.CreateCodeBuildForm(velocity.Scintilla.Text);
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            docmanager.CreateDeskForm();
+            desk.Show(dockPanel);
+        }
+
+        private void toolBarButtonTaskList_Click(object sender, EventArgs e)
+        {
+            docmanager.CreateErrorForm();
+            error.Show(dockPanel);
+        }
+
+        private void toolBarButtonOutputWindow_Click(object sender, EventArgs e)
+        {
+            docmanager.CreateOutputForm();
+            output.Show(dockPanel);
         }
     }
 }

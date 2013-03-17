@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using CodeGenernate.Common;
+using ScintillaNET;
 
 namespace CodeGenernate
 {
@@ -34,12 +35,22 @@ namespace CodeGenernate
                 return template;
             }
         }
+
+        public Scintilla Scintilla
+        {
+            get
+            {
+                return this.scintilla1;
+            }
+        }
         public void SetMessage(string msg,TemplateFile file)
         {
             this.message = msg;
             this.template = file;
             this.scintilla1.Text = this.message;
-            this.scintilla1.IsReadOnly = true;
+            //this.scintilla1.IsReadOnly = true;
+            this.scintilla1.ConfigurationManager.Language = LauguaageType.cs.ToString();
+                this.scintilla1.Indentation.SmartIndentType = SmartIndent.CPP;
             this.scintilla1.Margins.Margin0.Width = 35;
         }
     }

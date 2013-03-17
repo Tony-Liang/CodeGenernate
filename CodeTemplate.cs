@@ -18,14 +18,7 @@ namespace CodeGenernate
         {
             InitializeComponent();
         }
-
-        public CodeTemplate(Main form)
-            : this()
-        {
-            this.parentform = form;
-        }
-        private Main parentform;
-
+      
         private void CodeTemplate_Load(object sender, EventArgs e)
         {
             TemplateFile root = TemplateManager.GetInstance("Template");
@@ -74,19 +67,19 @@ namespace CodeGenernate
             if (node != null)
             {
                 TemplateFile temp = (TemplateFile)node.Tag;
-                parentform.CreateDocument(temp.Name, () =>
-                {
-                    string content = FileHelper.ReadFile(temp.Path);
-                    VelocityCode dummyDoc = new VelocityCode();
-                    dummyDoc.SetMessage(content,temp);
-                    return dummyDoc;
-                });
+                //parentform.CreateDocument(temp.Name, () =>
+                //{
+                //    string content = FileHelper.ReadFile(temp.Path);
+                //    VelocityCode dummyDoc = new VelocityCode();
+                //    dummyDoc.SetMessage(content, temp);
+                //    return dummyDoc;
+                //});
 
-                    
-                    //if (FileHandler != null)
-                    //{
-                    //    FileHandler(temp, new DocumentEventArgs(temp.Name, content));
-                    //}
+
+                if (FileHandler != null)
+                {
+                    FileHandler(temp, new DocumentEventArgs(temp.Name, temp));
+                }
             }
         }
 
@@ -115,7 +108,6 @@ namespace CodeGenernate
             }
         }
     }
-
 
     public class DummyFileNode : TreeNode
     {

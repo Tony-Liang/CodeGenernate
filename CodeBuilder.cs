@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using LCW.Framework.Common.Genernation.DataBases;
 using CodeGenernate.Properties;
 using CodeGenernate.Common;
+using NVelocity;
+using CodeGenernate.Design;
 
 namespace CodeGenernate
 {
@@ -18,13 +20,13 @@ namespace CodeGenernate
         {
             InitializeComponent();
         }
-        private string filepath;
+        private string templatecontent;
         public CodeBuilder(string templatepath)
             : this()
         {
-            this.filepath = templatepath;
+            this.templatecontent = templatepath;
         }
-
+        public event ExceptionHandle<ExceptionArgs> Handle;
         private void CodeBuilder_Load(object sender, EventArgs e)
         {
             this.cbo_database.DataSource = null;
@@ -47,9 +49,23 @@ namespace CodeGenernate
             Settings.Default.namespaces = this.txt_namespace.Text;
             Settings.Default.Save();
 
-            VelocityWrapper.CreateCode(this.filepath,this.txt_output.Text);
+            VelocityContext context = new VelocityContext();
+            context.Put("servicesite", DataBaseSchemaBuilder.GetInstance());
+            context.Put("Assembly",txt_assembly.Text);
+            context.Put("NameSpace", txt_namespace.Text);
+            try
+            {
+                VelocityWrapper.CreateCode(this.templatecontent, this.txt_output.Text, context);
+            }
+            catch (Exception ex)
+            {
+                if(Handle!=null)
+                    Handle(new ExceptionArgs(null,ex));
+            }
+            this.Close();
         }
 
+        
         private void btn_savedialog_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.ShowNewFolderButton = true;

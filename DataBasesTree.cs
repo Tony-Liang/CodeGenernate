@@ -269,22 +269,7 @@ namespace CodeGenernate
 
         void tables_LoadData(object sender, EventArgs e)
         {
-            BaseNode obj = (BaseNode)sender;
-            //IList<TableSchema> list = DBSchemaProvider.GetInstance().GetTables(obj.ConnectionStringBuilder);
-            //if (list != null)
-            //{
-            //    foreach (TableSchema schema in list)
-            //    {
-            //        BaseNode node = new BaseNode(schema.Description, obj.ConnectionStringBuilder, DataType.table);
-            //        node.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
-            //            Refresh()
-            //        });
-            //        node.Name = schema.Name;
-            //        node.ImageIndex =node.SelectedImageIndex= 2;
-            //        node.LoadData += new EventHandler(node_LoadData);
-            //        obj.Nodes.Add(node);
-            //    }
-            //}
+            BaseNode obj = (BaseNode)sender;            
             if (obj.Tag != null)
             {
                 DataBaseEntity database = (DataBaseEntity)obj.Tag;
@@ -296,7 +281,7 @@ namespace CodeGenernate
                         BaseNode node = new BaseNode(schema.Description, schema.DbConnectionStringBuilder, DataType.table);
                         node.Tag = schema;
                         node.ContextMenu = new System.Windows.Forms.ContextMenu(new MenuItem[]{
-                                    Refresh()
+                                    Refresh(),Open(),BuildCode()
                                 });
                         node.Name = schema.Name;
                         node.ImageIndex = node.SelectedImageIndex = 2;
@@ -329,7 +314,7 @@ namespace CodeGenernate
                 {
                     foreach (ColumnEntity schema in list)
                     {
-                        BaseNode col = new BaseNode(schema.Name, schema.DbConnectionStringBuilder, DataType.column);
+                        BaseNode col = new BaseNode(schema.Description, schema.DbConnectionStringBuilder, DataType.column);
                         col.Tag=schema;
                         col.ImageIndex=col.SelectedImageIndex =6;
                         col.Nodes.Clear();
@@ -353,6 +338,14 @@ namespace CodeGenernate
             item.Name = "refresh";
             item.Text = "刷新";
             item.Click += new EventHandler(item_Click);
+            return item;
+        }
+        private MenuItem BuildCode()
+        {
+            MenuItem item = new MenuItem();
+            item.Name = "buildcode";
+            item.Text = "代码";
+            item.Click += new EventHandler(buildcode_Click);
             return item;
         }
 
@@ -403,6 +396,25 @@ namespace CodeGenernate
                             ViewEntity v = (ViewEntity)node.Tag;
                             message = v.Content;
                             DocHandler(v, new DocumentEventArgs(v.Name,message));
+                        }
+                    }
+                }
+            }
+        }
+        void buildcode_Click(object sender, EventArgs e)
+        {
+            TreeNode node = this.treeView1.SelectedNode;
+            if (node != null)
+            {
+                if (node is BaseNode)
+                {
+                    BaseNode temp = (BaseNode)node;
+                    if (DataType.table == temp.NodeType)
+                    {
+                        if (DocHandler != null)
+                        {
+                            TableEntity v = (TableEntity)node.Tag;
+                            DocHandler(v, new DocumentEventArgs(v.Name,v));
                         }
                     }
                 }

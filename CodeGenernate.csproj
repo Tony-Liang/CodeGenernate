@@ -84,17 +84,52 @@
     <Compile Include="Common\ResourcesHelper.cs" />
     <Compile Include="Common\TemplateManager.cs" />
     <Compile Include="Common\VelocityWrapper.cs" />
+    <Compile Include="Controls\FolderTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FolderTreeView.Designer.cs">
+      <DependentUpon>FolderTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataBasesTree.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataBasesTree.Designer.cs">
       <DependentUpon>DataBasesTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="Design\AbstractCommand.cs" />
+    <Compile Include="Design\CodeBuilderManager.cs" />
+    <Compile Include="Design\CodeTemplates\GeneralCode.cs" />
+    <Compile Include="Design\CodeTemplates\ICodeTemplate.cs" />
+    <Compile Include="Design\DatabaseManager.cs" />
+    <Compile Include="Design\DeskManager.cs" />
+    <Compile Include="Design\DockPanelBase.cs" />
+    <Compile Include="Design\DocumentManager.cs" />
+    <Compile Include="Design\ErrorManager.cs" />
+    <Compile Include="Design\OutputManager.cs" />
+    <Compile Include="Design\TemplateManager.cs" />
+    <Compile Include="Desk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Desk.Designer.cs">
+      <DependentUpon>Desk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Error.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Error.Designer.cs">
+      <DependentUpon>Error.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Output.Designer.cs">
+      <DependentUpon>Output.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,11 +154,23 @@
     <EmbeddedResource Include="CodeTemplate.resx">
       <DependentUpon>CodeTemplate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FolderTreeView.resx">
+      <DependentUpon>FolderTreeView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataBasesTree.resx">
       <DependentUpon>DataBasesTree.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Desk.resx">
+      <DependentUpon>Desk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Error.resx">
+      <DependentUpon>Error.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Output.resx">
+      <DependentUpon>Output.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -168,7 +215,9 @@
     <Content Include="Images\db.Table.png" />
     <Content Include="Images\db.Trigger.png" />
     <Content Include="Images\db.View.png" />
+    <Content Include="Images\Drive.ico" />
     <Content Include="Images\File.ico" />
+    <Content Include="Images\Folder.ico" />
     <Content Include="Images\Form.ico" />
     <Content Include="Images\icon-lg.png" />
     <Content Include="Images\icon.png" />
@@ -192,6 +241,7 @@
     <Content Include="Images\ToolboxWindow.ico" />
     <Content Include="Images\XmlFile.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
